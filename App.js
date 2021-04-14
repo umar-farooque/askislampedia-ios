@@ -12,7 +12,7 @@ export default function App() {
     //   <StatusBar style="auto" />
     // </View>
     <NavigationContainer>
-      <StatusBar />
+      <StatusBar style="auto" />
       <AppNavigator />
     </NavigationContainer>
   );

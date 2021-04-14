@@ -1,27 +1,33 @@
 import React from "react";
 
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
-
 import HomeScreen from "../screens/HomeScreen";
 import DetailScreen from "../screens/DetailScreen";
-import ArticlesScreen from "../screens/ArticlesScreen";
 import BasicIslamInfo from "../screens/BasicIslamInfo";
 import AnsweringAlegations from "../screens/AnweringAlegations";
 import ScholarsView from "../screens/ScholarsView";
 import ContactUs from "../screens/ContactUs";
 import AboutUs from "../screens/AboutUs";
 
-import { Icon } from "react-native-elements";
+import Hamburger from "../components/Hamburger";
+
+import { createStackNavigator } from "@react-navigation/stack";
+import { useNavigation } from "@react-navigation/native";
 
 const Stack = createStackNavigator();
+
 function ArticleStack(props) {
+  const navigation = useNavigation();
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="Home Screen"
         component={HomeScreen}
-        options={{ title: "AskIslamPedia" }}
+        options={{
+          title: "AskIslamPedia",
+          headerLeft: () => (
+            <Hamburger onPress={() => navigation.openDrawer()} />
+          ),
+        }}
       />
       <Stack.Screen
         name="Detail Screen"

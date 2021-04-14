@@ -12,7 +12,7 @@ function FeaturedArticleCard({ onPress }) {
           </AppText>
         </View>
         <View style={styles.contentContainer}>
-          <AppText style={styles.content} lines={9}>
+          <AppText style={styles.content} lines={6}>
             Content consequat in neque. Fusce posuere at urna vitae
             sollicitudin. Morbi pharetra massa sed dictum ornare. Maecenas sed
             nisi semper purus malesuada fringilla vel a nunc. Cras elementum
@@ -38,14 +38,14 @@ function FeaturedArticleCard({ onPress }) {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: 300,
+    // height: 300,
     backgroundColor: "white",
     padding: 15,
     borderRadius: 20,
   },
   headingContainer: { marginBottom: 5 },
   heading: { fontSize: 35 },
-  content: { fontSize: 20 },
+  content: { fontSize: 20, textAlign: "justify" },
 
   contentContainer: { marginTop: 10 },
 });

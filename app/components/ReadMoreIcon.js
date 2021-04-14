@@ -13,7 +13,7 @@ function ReadMoreIcon({ onPress }) {
       <Icon
         name="arrow-right-alt"
         type="materialicons"
-        color="#365DCE"
+        color="#006ee6"
         size={30}
       />
     </TouchableOpacity>
@@ -22,10 +22,10 @@ function ReadMoreIcon({ onPress }) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    // backgroundColor: "dodgerblue",
+    justifyContent: "flex-end",
     alignItems: "center",
   },
-  text: { marginVertical: 10, color: "#365DCE", fontSize: 20 },
+  text: { marginVertical: 10, color: "#006ee6", fontSize: 20 },
 });
-
+// #365DCE
 export default ReadMoreIcon;

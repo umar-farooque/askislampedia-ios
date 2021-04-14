@@ -1,10 +1,12 @@
 import React from "react";
 import { Text, StyleSheet, Platform } from "react-native";
 
-function AppText({ children, style, lines, onPress }) {
+function AppText({ children, style, lines, onPress, ref, onLayout }) {
   return (
     <Text
+      onLayout={onLayout}
       onPress={onPress}
+      ref={ref}
       style={[styles.text, style]}
       numberOfLines={lines}
       ellipsizeMode="tail"

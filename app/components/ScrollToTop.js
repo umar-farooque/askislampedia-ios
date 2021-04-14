@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     height: 60,
     width: 60,
     // backgroundColor: "white",
-    opacity: 0.5,
+    opacity: 0.6,
     position: "absolute",
     alignItems: "center",
     justifyContent: "center",

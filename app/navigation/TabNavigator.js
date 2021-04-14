@@ -5,6 +5,9 @@ import ArticleStack from "./ArticleStack";
 import EbookScreen from "../screens/EbookScreen";
 import QuranScreen from "../screens/QuranScreen";
 import InfoScreen from "../screens/InfoScreen";
+import EbookStack from "./EBookStack";
+import QuranStack from "./QuranStack";
+import InfoStack from "./InfoStack";
 
 const Tab = createBottomTabNavigator();
 function TabNavigator(props) {
@@ -26,7 +29,7 @@ function TabNavigator(props) {
       />
       <Tab.Screen
         name="E-books"
-        component={EbookScreen}
+        component={EbookStack}
         options={({ navigation, route }) => ({
           tabBarIcon: ({ color, size }) => (
             <Icon
@@ -40,7 +43,7 @@ function TabNavigator(props) {
       />
       <Tab.Screen
         name="Quran"
-        component={QuranScreen}
+        component={QuranStack}
         options={({ navigation, route }) => ({
           tabBarIcon: ({ color, size }) => (
             <Icon
@@ -54,7 +57,7 @@ function TabNavigator(props) {
       />
       <Tab.Screen
         name="Info"
-        component={InfoScreen}
+        component={InfoStack}
         options={({ navigation, route }) => ({
           tabBarIcon: ({ color, size }) => (
             <Icon name="info" type="feather" color={color} size={size} />

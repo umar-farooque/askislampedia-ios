@@ -112,7 +112,7 @@ function HomeScreen({ navigation }) {
 
   let scroll = useRef();
   let [visible, setVisible] = useState(false);
-  let [data, setData] = useState([]);
+  // let [data, setData] = useState([]);
 
   let handlePress = () =>
     navigation.navigate("Detail Screen", {
@@ -175,6 +175,7 @@ function HomeScreen({ navigation }) {
               )}
             />
           </View>
+          <ReadMoreIcon onPress={() => navigation.navigate("Articles")} />
         </View>
 
         {/* Articles About Prophet */}
@@ -199,6 +200,7 @@ function HomeScreen({ navigation }) {
               )}
             />
           </View>
+          <ReadMoreIcon onPress={() => navigation.navigate("Articles")} />
         </View>
 
         {/* Articles About Pillars Of Islam */}
@@ -221,6 +223,7 @@ function HomeScreen({ navigation }) {
               )}
             />
           </View>
+          <ReadMoreIcon onPress={() => navigation.navigate("Articles")} />
         </View>
         {/* Articles About Current Issues */}
         <View style={styles.articlesContainer}>
