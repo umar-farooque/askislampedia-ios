@@ -72,6 +72,48 @@ let articles = [
 function AllArticles({ navigation }) {
   let scroll = useRef();
   let [visible, setVisible] = useState(false);
+  let [data,setData] = useState([articles.slice(0,15)])
+  let [page,setPage] = useState(1)
+
+{/* 
+
+addRecords = (page) => {
+  // assuming this.state.dataPosts hold all the records
+  const newRecords = []
+  for(var i = page * 12, il = i + 12; i < il && i < 
+    articles.length; i++){
+    newRecords.push(articles[i]);
+  }
+  this.setState({
+    posts: [...this.state.posts, ...newRecords]
+  });
+  setData([...data,...newRecords])
+}
+
+onScrollHandler = () => {
+  this.setState({
+    page: this.state.page + 1
+  }, () => {
+    addRecords(page);
+  });
+  setPage(page + 1)
+  addRecords(page)
+}
+
+
+
+*/}
+  let loadMore = ()=>{
+    if (articles.length <= data.length) return data
+    let ITEMS_PER_PAGE = 15
+    const start = page*ITEMS_PER_PAGE;
+    const end = (page+1)*ITEMS_PER_PAGE-1;
+
+    const newData = articles.slice(start, end); // here, we will receive next batch of the items
+    // this.setState({data: [...data, ...newData]})
+    setData([...data,...newData])
+    setPage(page + 1)
+  }
 
   let handleScollDrag = () => setVisible(true);
   let handleScrollToTop = () => {
@@ -108,8 +150,9 @@ function AllArticles({ navigation }) {
           }}
         >
           <FlatList
-            data={articles}
+            data={data}
             keyExtractor={(item) => item.title}
+            onEndReached={loadMore}
             renderItem={(item) => (
               <TopReadCard
                 title={item.item.title}
