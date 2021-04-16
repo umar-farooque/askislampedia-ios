@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Dimensions, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Dimensions, StyleSheet } from "react-native";
+
 import { Icon } from "react-native-elements";
 
 function ScrollToTop({ onPress }) {
@@ -21,7 +22,6 @@ const styles = StyleSheet.create({
     marginLeft: Dimensions.get("screen").width - 60,
     height: 60,
     width: 60,
-    // backgroundColor: "white",
     opacity: 0.6,
     position: "absolute",
     alignItems: "center",

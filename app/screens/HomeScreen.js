@@ -13,8 +13,6 @@ import ReadMoreIcon from "../components/ReadMoreIcon";
 import Seperator from "../components/Seperator";
 import TopReadCard from "../components/TopReadCard";
 import ScrollToTop from "../components/ScrollToTop";
-import AppButton from "../components/AppButton";
-import LoadingIndicator from "../components/LoadingIndicator";
 
 import articlesApi from "../api/articles";
 import UseApi from "../hooks/useApi";
@@ -104,11 +102,11 @@ let Children = [
 ];
 
 function HomeScreen({ navigation }) {
-  const getListingsApi = useApi(articlesApi.getListings, true);
+  // const getListingsApi = useApi(articlesApi.getListings, true);
 
-  useEffect(() => {
-    getListingsApi.request();
-  }, []);
+  // useEffect(() => {
+  //   getListingsApi.request();
+  // }, []);
 
   let scroll = useRef();
   let [visible, setVisible] = useState(false);
@@ -123,27 +121,26 @@ function HomeScreen({ navigation }) {
     scroll.current.scrollTo({ animated: true }, 0);
     setVisible(false);
   };
-
   let handleMomentumScrollEnd = (event) => {
     if (!event.nativeEvent.contentOffset.y > 0) setVisible(false);
   };
-
+  let handleReadMore = () => navigation.navigate("AllArticles");
   return (
     <>
-      {getListingsApi.loading && (
+      {/* {getListingsApi.loading && (
         <ActivityIndicator
           animating={getListingsApi.loading}
           size="large"
           color="blue"
         />
       )}
-      {/* <LoadingIndicator visible={getListingsApi.loading} /> */}
+      <LoadingIndicator visible={getListingsApi.loading} />
       {getListingsApi.error && !getListingsApi.loading && (
         <>
           <AppText>Couldn't load Listings</AppText>
           <AppButton title="Retry" onPress={() => getListingsApi.request()} />
         </>
-      )}
+      )} */}
       <ScrollView
         ref={scroll}
         style={styles.container}
@@ -175,9 +172,8 @@ function HomeScreen({ navigation }) {
               )}
             />
           </View>
-          <ReadMoreIcon onPress={() => navigation.navigate("Articles")} />
+          <ReadMoreIcon onPress={handleReadMore} />
         </View>
-
         {/* Articles About Prophet */}
         <View style={styles.articlesContainer}>
           <AppText style={styles.text}>
@@ -200,9 +196,8 @@ function HomeScreen({ navigation }) {
               )}
             />
           </View>
-          <ReadMoreIcon onPress={() => navigation.navigate("Articles")} />
+          <ReadMoreIcon onPress={handleReadMore} />
         </View>
-
         {/* Articles About Pillars Of Islam */}
         <View style={styles.articlesContainer}>
           <AppText style={styles.text}>Pillars Of Islam & Imaan</AppText>
@@ -223,7 +218,7 @@ function HomeScreen({ navigation }) {
               )}
             />
           </View>
-          <ReadMoreIcon onPress={() => navigation.navigate("Articles")} />
+          <ReadMoreIcon onPress={handleReadMore} />
         </View>
         {/* Articles About Current Issues */}
         <View style={styles.articlesContainer}>
@@ -245,11 +240,9 @@ function HomeScreen({ navigation }) {
               )}
             />
           </View>
-          <ReadMoreIcon onPress={() => navigation.navigate("Articles")} />
+          <ReadMoreIcon onPress={handleReadMore} />
         </View>
-
         {/* Articles About top articles */}
-
         <View style={styles.articlesContainer}>
           <AppText style={styles.text}>Top articles</AppText>
           <View style={styles.articlesContent}>
@@ -270,9 +263,9 @@ function HomeScreen({ navigation }) {
             />
           </View>
 
-          <ReadMoreIcon onPress={() => navigation.navigate("Articles")} />
+          <ReadMoreIcon onPress={handleReadMore} />
         </View>
-
+        {/* Articles About Months Of Islam */}
         <View style={styles.articlesContainer}>
           <AppText style={styles.text}>Months Of Islam</AppText>
           <View style={styles.articlesContent}>
@@ -292,9 +285,9 @@ function HomeScreen({ navigation }) {
               )}
             />
           </View>
-          <ReadMoreIcon onPress={() => navigation.navigate("Articles")} />
+          <ReadMoreIcon onPress={handleReadMore} />
         </View>
-
+        {/* Articles About Women's */}
         <View style={styles.articlesContainer}>
           <AppText style={styles.text}>Women's World</AppText>
           <View style={styles.articlesContent}>
@@ -316,7 +309,7 @@ function HomeScreen({ navigation }) {
           </View>
           <ReadMoreIcon onPress={() => navigation.navigate("Articles")} />
         </View>
-
+        {/* Articles About Children's */}
         <View style={styles.articlesContainer}>
           <AppText style={styles.text}>Children's World</AppText>
           <View style={styles.articlesContent}>
@@ -328,20 +321,43 @@ function HomeScreen({ navigation }) {
                 <TopReadCard
                   title={item.item.title}
                   onPress={() =>
-                    navigation.navigate("Detail Screen", { title: item.item })
+                    navigation.navigate("Detail Screen", {
+                      title: item.item.title,
+                    })
                   }
                 />
               )}
             />
           </View>
-          <ReadMoreIcon onPress={() => navigation.navigate("Articles")} />
+          <ReadMoreIcon onPress={handleReadMore} />
         </View>
       </ScrollView>
-
       {visible && <ScrollToTop onPress={handleScrollToTop} />}
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  articlesContainer: {
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  articlesContent: {
+    backgroundColor: "white",
+    overflow: "hidden",
+    borderRadius: 20,
+  },
+  container: {
+    paddingHorizontal: 15,
+    backgroundColor: "#F1F1F1",
+  },
+  featuredContainer: {
+    marginTop: 20,
+  },
+  text: { fontSize: 24, marginBottom: 15 },
+});
+
+export default HomeScreen;
 {
   /* <View style={styles.articlesContainer}>
   <AppText style={styles.text}>Top read</AppText>
@@ -363,28 +379,6 @@ function HomeScreen({ navigation }) {
   </View>
 </View> */
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 15,
-    backgroundColor: "#F1F1F1",
-  },
-  articlesContainer: {
-    marginTop: 20,
-    marginBottom: 10,
-  },
-  articlesContent: {
-    backgroundColor: "white",
-    overflow: "hidden",
-    borderRadius: 20,
-  },
-  featuredContainer: {
-    marginTop: 20,
-  },
-  text: { fontSize: 24, marginBottom: 15 },
-});
-
-export default HomeScreen;
 
 // ListFooterComponent={() => (
 //   <AppText

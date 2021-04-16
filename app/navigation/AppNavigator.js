@@ -12,16 +12,16 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import TabNavigator from "./TabNavigator";
 import CustomDrawerScreen from "../screens/CustomDrawerScreen";
 
-const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
 function AppNavigator(props) {
-  return (
-    <Drawer.Navigator
-      drawerContent={(props) => <CustomDrawerScreen {...props} />}
-    >
-      <Drawer.Screen name="Articles" component={TabNavigator} />
-    </Drawer.Navigator>
-  );
+  return <TabNavigator />;
 }
 
 export default AppNavigator;
+
+// <Drawer.Navigator
+//   drawerContent={(props) => <CustomDrawerScreen {...props} />}
+// >
+//   <Drawer.Screen name="Articles" component={TabNavigator} />
+// </Drawer.Navigator>

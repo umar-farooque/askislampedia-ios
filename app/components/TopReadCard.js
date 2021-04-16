@@ -1,5 +1,6 @@
 import React from "react";
 import { TouchableOpacity, StyleSheet, View } from "react-native";
+
 import AppText from "./AppText";
 
 function TopReadCard({ title, onPress }) {

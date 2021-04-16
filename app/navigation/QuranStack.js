@@ -16,9 +16,6 @@ const QuranStack = () => {
         component={QuranScreen}
         options={{
           title: "Quran",
-          headerLeft: () => (
-            <Hamburger onPress={() => navigation.openDrawer()} />
-          ),
         }}
       />
     </Stack.Navigator>

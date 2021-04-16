@@ -17,18 +17,7 @@ function FeaturedArticleCard({ onPress }) {
             sollicitudin. Morbi pharetra massa sed dictum ornare. Maecenas sed
             nisi semper purus malesuada fringilla vel a nunc. Cras elementum
             nisi non libero porttitor efficitur. Donec ultrices turpis id nisi ,
-            at enim. Etiam efficitur nunc et porta nec id leo.uis lacus neque,
-            vulputate eu nunc eget, luctus fringilla dui. Etiam lacinia quam in
-            ultrices suscipit. Etiam eget ex porta, laoreet justo at, dictum
-            arcu. Etiam ultrices rutrum lorem. Praesent ut mauris vitae diam
-            malesuada ornare quis ut purus. Proin venenatis purus eu faucibus
-            iaculis. Cras ac efficitur nisi. Phasellus pretium tempus hendrerit.
-            Duis scelerisque nunc ut finibus dignissim. Pellentesque vehicula
-            tempus nunc fringilla molestie. Nam sed quam nec ante pellentesque
-            accumsan in in neque. Nulla nec consectetur turpis, eu dictum
-            libero. Maecenas pretium, turpis sed dictum rutrum, sem velit
-            commodo risus, a varius urna ligula non mauris. Praesent quis urna a
-            mauris dapibus volutpat quis cursus dui.
+            at enim
           </AppText>
         </View>
       </View>
@@ -38,7 +27,6 @@ function FeaturedArticleCard({ onPress }) {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    // height: 300,
     backgroundColor: "white",
     padding: 15,
     borderRadius: 20,

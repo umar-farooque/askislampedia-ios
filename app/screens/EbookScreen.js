@@ -1,12 +1,14 @@
 import React from "react";
 import { View } from "react-native";
 import AppText from "../components/AppText";
+import { WebView } from "react-native-webview";
 
 function EbookScreen(props) {
   return (
     <>
       <View>
-        <AppText>E Books Screen</AppText>
+        <AppText>Ebook Screen </AppText>
+        {/* <WebView source={{ uri: "https://www.askislampedia.com/wiki" }} /> */}
       </View>
     </>
   );

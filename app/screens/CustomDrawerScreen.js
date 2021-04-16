@@ -51,7 +51,7 @@ function CustomDrawerScreen(props) {
           <DrawerItem
             labelStyle={styles.text}
             label="About us"
-            onPress={() => props.navigation.navigate("AboutUs")}
+            onPress={() => props.navigation.navigate("Info")}
           />
           <DrawerItem
             labelStyle={styles.text}

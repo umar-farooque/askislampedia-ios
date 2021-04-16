@@ -3,6 +3,7 @@ import { ScrollView, View, StyleSheet, FlatList } from "react-native";
 import AppText from "../components/AppText";
 import TopReadCard from "../components/TopReadCard";
 import Seperator from "../components/Seperator";
+
 let articles = [
   { title: "Prophet Shuaib" },
   { title: "Zabur" },

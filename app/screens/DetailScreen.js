@@ -16,7 +16,7 @@ import AppButton from "../components/AppButton";
 
 import HTML from "react-native-render-html";
 import table, { IGNORED_TAGS } from "@native-html/table-plugin";
-import WebView from "react-native-webview";
+import { WebView } from "react-native-webview";
 import Seperator from "../components/Seperator";
 
 const htmlProps = {
@@ -43,53 +43,22 @@ function computeEmbeddedMaxWidth(contentWidth, tagName) {
   return contentWidth;
 }
 
-function DetailScreen({ route }) {
-  let url = route.params.title;
+function DetailScreen({ route, navigation }) {
+  let Title = route.params.title;
   // console.log(route.params);
+
   let scroll = useRef();
-  let [posPara1, setPosPara1] = useState("");
-  let [posPara2, setPosPara2] = useState("");
-  let [posPara3, setPosPara3] = useState("");
-  let [posButton, setPosButton] = useState("");
-  // const contentWidth = useWindowDimensions().width;
-  // const getDetails = useApi(() => articles.getDetails(url));
 
   let [visible, setVisible] = useState(false);
-
-  // useEffect(() => {
-  //   getDetails.request();
-  // }, []);
 
   let handleScollDrag = () => setVisible(true);
   let handleScrollToTop = () => {
     scroll.current.scrollTo({ x: 0, y: 0, animated: true });
     setVisible(false);
   };
-  let handlePara1 = (event) => {
-    const { layout } = event.nativeEvent;
-    setPosPara1(layout.y);
-    // console.log("height:", layout.height);
-    // console.log("width:", layout.width);
-    // console.log("x:", layout.x);
-    // console.log("y:", layout.y);
-  };
-  let handlePara2 = (event) => {
-    const { layout } = event.nativeEvent;
-    setPosPara2(layout.y);
-  };
-  let handlePara3 = (event) => {
-    const { layout } = event.nativeEvent;
-    setPosPara3(layout.y);
-  };
-  let handleButton = (event) => {
-    const { layout } = event.nativeEvent;
-    setPosButton(layout.y);
-  };
-
   let handleMomentumScrollEnd = (event) => {
     if (!event.nativeEvent.contentOffset.y > 0) setVisible(false);
   };
-  // console.log("---------->", getDetails.data);
   return (
     <>
       <ScrollView
@@ -98,31 +67,13 @@ function DetailScreen({ route }) {
         onScrollBeginDrag={handleScollDrag}
         onMomentumScrollEnd={handleMomentumScrollEnd}
       >
-        {/* {getDetails.loading && (
-          <ActivityIndicator
-            animating={getDetails.loading}
-            size="large"
-            color="blue"
-          />
-        )}
-        {getDetails.error && !getDetails.loading && (
-          <>
-            <AppText>Couldn't load Listings</AppText>
-            <AppButton title="Retry" onPress={() => getDetails.request()} />
-          </>
-        )} */}
         <View style={styles.card}>
           <View style={styles.headingContainer}>
-            <AppText style={styles.heading}>{url}</AppText>
+            <AppText style={styles.heading}>{Title}</AppText>
           </View>
           <Seperator style={styles.seperator} />
-          <AppText
-            style={{ fontSize: 25, fontWeight: "bold", color: "green" }}
-            onPress={() => scroll.current.scrollTo({ x: 0, y: posPara2 })}
-          >
-            Scroll To Para2
-          </AppText>
-          <AppText style={styles.paragraph} onLayout={handlePara1}>
+
+          <AppText style={styles.paragraph}>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
@@ -132,13 +83,8 @@ function DetailScreen({ route }) {
             with the release of Letraset sheets containing Lorem Ipsum passages,
             and more recently with desktop publishing software like Aldus Ipsum.
           </AppText>
-          <AppText
-            style={{ fontSize: 25, fontWeight: "bold", color: "tomato" }}
-            onPress={() => scroll.current.scrollTo({ x: 0, y: posButton })}
-          >
-            Scroll to button
-          </AppText>
-          <AppText style={styles.paragraph} onLayout={handlePara2}>
+
+          <AppText style={styles.paragraph}>
             PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply
             dummy text of the printing and typesetting industry. Lorem Ipsum has
             been the industry's standard dummy text ever since the 1500s, when
@@ -152,7 +98,7 @@ function DetailScreen({ route }) {
             printing and typesetting industry.
           </AppText>
 
-          <AppText style={styles.paragraph} onLayout={handlePara3}>
+          <AppText style={styles.paragraph}>
             It is a long established fact that a reader will be distracted by
             the readable content of a page when looking at its layout. The point
             of using Lorem Ipsum is that it has a more-or-less normal
@@ -164,30 +110,21 @@ function DetailScreen({ route }) {
             years, sometimes by accident, sometimes on purpose (injected humour
             and the like).
           </AppText>
-          <AppText
-            style={{ fontSize: 25, fontWeight: "bold", color: "blue" }}
-            onPress={() => scroll.current.scrollTo({ x: 0, y: posPara1 })}
-          >
-            Scroll to para 1
-          </AppText>
           <Seperator style={styles.seperator} />
-          <View style={styles.buttonContainer} onLayout={handleButton}>
-            <AppButton title="Read More" />
+          <View style={styles.buttonContainer}>
+            <AppButton
+              title="Read More"
+              onPress={() =>
+                navigation.navigate("Webview", {
+                  title: Title,
+                  url:
+                    // "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Allah+%D8%B3%D8%A8%D8%AD%D8%A7%D9%86%D9%87+%D9%88+%D8%AA%D8%B9%D8%A7%D9%84%D9%89",
+                    "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Laa+ilaha+illallah",
+                })
+              }
+            />
           </View>
         </View>
-
-        {/* <View style={{ flex: 1, padding: 10, backgroundColor: "white" }}>
-          
-        </View> */}
-        {/* <HTML
-          ,backgroundColor:"white"{...htmlProps}
-          source={{ html: getDetails.data }}
-          contentWidth={contentWidth}
-          tagsStyles={tagsStyles}
-          ignoredTags={[...IGNORED_TAGS, "img", "hr"]}
-          containerStyle={{ flex: 1, padding: 5, marginTop: 15 }}
-          computeEmbeddedMaxWidth={computeEmbeddedMaxWidth}
-        /> */}
       </ScrollView>
       {visible && <ScrollToTop onPress={handleScrollToTop} />}
     </>
@@ -209,3 +146,67 @@ const styles = StyleSheet.create({
   seperator: { marginVertical: 10 },
 });
 export default DetailScreen;
+
+{
+  /*  
+  let [posPara1, setPosPara1] = useState("");
+  let [posPara2, setPosPara2] = useState("");
+  let [posButton, setPosButton] = useState("");
+  let handlePara1 = (event) => {
+    const { layout } = event.nativeEvent;
+    setPosPara1(layout.y);
+    console.log("height:", layout.height);
+    console.log("width:", layout.width);
+    console.log("x:", layout.x);
+    console.log("y:", layout.y);
+  };
+  let handlePara2 = (event) => {
+    const { layout } = event.nativeEvent;
+    setPosPara2(layout.y);
+  };
+  
+  let handleButton = (event) => {
+    const { layout } = event.nativeEvent;
+    setPosButton(layout.y);
+  };
+  { <AppText
+    style={{ fontSize: 25, fontWeight: "bold", color: "tomato" }}
+    onPress={() => scroll.current.scrollTo({ x: 0, y: posButton })}
+    >
+    Scroll to button
+    </AppText> 
+    
+*/
+}
+{
+  /* <View style={{ flex: 1, padding: 10, backgroundColor: "white" }}>
+      
+    </View> */
+}
+{
+  /* <HTML
+      ,backgroundColor:"white"{...htmlProps}
+      source={{ html: getDetails.data }}
+      contentWidth={contentWidth}
+      tagsStyles={tagsStyles}
+      ignoredTags={[...IGNORED_TAGS, "img", "hr"]}
+      containerStyle={{ flex: 1, padding: 5, marginTop: 15 }}
+      computeEmbeddedMaxWidth={computeEmbeddedMaxWidth}
+    /> */
+}
+
+{
+  /* {getDetails.loading && (
+          <ActivityIndicator
+            animating={getDetails.loading}
+            size="large"
+            color="blue"
+          />
+        )}
+        {getDetails.error && !getDetails.loading && (
+          <>
+            <AppText>Couldn't load Listings</AppText>
+            <AppButton title="Retry" onPress={() => getDetails.request()} />
+          </>
+        )} */
+}

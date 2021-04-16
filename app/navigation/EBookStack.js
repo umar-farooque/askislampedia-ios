@@ -1,7 +1,6 @@
 import React from "react";
 
 import EbookScreen from "../screens/EbookScreen";
-import Hamburger from "../components/Hamburger";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
@@ -17,9 +16,6 @@ const EbookStack = () => {
         component={EbookScreen}
         options={{
           title: "E-Book",
-          headerLeft: () => (
-            <Hamburger onPress={() => navigation.openDrawer()} />
-          ),
         }}
       />
     </Stack.Navigator>

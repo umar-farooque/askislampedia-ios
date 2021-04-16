@@ -17,9 +17,6 @@ const InfoStack = () => {
         component={InfoScreen}
         options={{
           title: "Info",
-          headerLeft: () => (
-            <Hamburger onPress={() => navigation.openDrawer()} />
-          ),
         }}
       />
     </Stack.Navigator>
