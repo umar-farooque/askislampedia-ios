@@ -6,6 +6,7 @@ import { SearchBar } from "react-native-elements";
 import Seperator from "../components/Seperator";
 import TopReadCard from "../components/TopReadCard";
 import ScrollToTop from "../components/ScrollToTop";
+import AppButton from "../components/AppButton";
 
 let articles = [
   { title: "Divorce or Talaq" },
@@ -71,55 +72,38 @@ let articles = [
 
 function AllArticles({ navigation }) {
   let scroll = useRef();
+
   let [visible, setVisible] = useState(false);
-  let [data,setData] = useState([articles.slice(0,15)])
-  let [page,setPage] = useState(1)
+  let [data, setData] = useState([...articles.slice(0, 10)]);
+  let [buttonVisible, setButtonVisible] = useState(true);
+  let [page, setPage] = useState(1);
 
-{/* 
+  let loadMore = () => {
+    let ITEMS_PER_PAGE = 10;
 
-addRecords = (page) => {
-  // assuming this.state.dataPosts hold all the records
-  const newRecords = []
-  for(var i = page * 12, il = i + 12; i < il && i < 
-    articles.length; i++){
-    newRecords.push(articles[i]);
-  }
-  this.setState({
-    posts: [...this.state.posts, ...newRecords]
-  });
-  setData([...data,...newRecords])
-}
-
-onScrollHandler = () => {
-  this.setState({
-    page: this.state.page + 1
-  }, () => {
-    addRecords(page);
-  });
-  setPage(page + 1)
-  addRecords(page)
-}
-
-
-
-*/}
-  let loadMore = ()=>{
-    if (articles.length <= data.length) return data
-    let ITEMS_PER_PAGE = 15
-    const start = page*ITEMS_PER_PAGE;
-    const end = (page+1)*ITEMS_PER_PAGE-1;
-
+    const start = page * ITEMS_PER_PAGE;
+    const end = (page + 1) * ITEMS_PER_PAGE;
     const newData = articles.slice(start, end); // here, we will receive next batch of the items
-    // this.setState({data: [...data, ...newData]})
-    setData([...data,...newData])
-    setPage(page + 1)
-  }
+
+    if (articles.length - data.length <= ITEMS_PER_PAGE) {
+      setButtonVisible(false);
+    }
+    if (articles.length <= data.length) return data;
+    setData([...data, ...newData]);
+    setPage(page + 1);
+
+    // console.log("====================================");
+    // console.log(articles.length - data.length);
+    // console.log("====================================");
+  };
 
   let handleScollDrag = () => setVisible(true);
+
   let handleScrollToTop = () => {
     scroll.current.scrollTo({ animated: true }, 0);
     setVisible(false);
   };
+
   let handleMomentumScrollEnd = (event) => {
     if (!event.nativeEvent.contentOffset.y > 0) setVisible(false);
   };
@@ -138,21 +122,13 @@ onScrollHandler = () => {
             containerStyle={styles.containerStyle}
             inputStyle={styles.inputStyle}
             inputContainerStyle={styles.inputContainerStyle}
-            // onFocus={() => navigation.navigate("Home Screen")}
+            onFocus={() => navigation.navigate("Search Screen")}
           />
         </View>
-        <View
-          style={{
-            backgroundColor: "white",
-            overflow: "hidden",
-            borderRadius: 20,
-            marginBottom: 30,
-          }}
-        >
+        <View style={styles.articlesContent}>
           <FlatList
             data={data}
             keyExtractor={(item) => item.title}
-            onEndReached={loadMore}
             renderItem={(item) => (
               <TopReadCard
                 title={item.item.title}
@@ -163,6 +139,12 @@ onScrollHandler = () => {
                 }
               />
             )}
+            ListFooterComponent={() =>
+              buttonVisible && (
+                <AppButton title="Load More" onPress={loadMore} />
+              )
+            }
+            ListFooterComponentStyle={styles.listFooterComponentStyle}
             ItemSeparatorComponent={Seperator}
           />
         </View>
@@ -172,9 +154,19 @@ onScrollHandler = () => {
   );
 }
 const styles = StyleSheet.create({
+  articlesContent: {
+    backgroundColor: "white",
+    overflow: "hidden",
+    borderRadius: 20,
+    marginBottom: 30,
+  },
   searchContainer: {
     justifyContent: "center",
     marginBottom: 10,
+    alignItems: "center",
+  },
+  listFooterComponentStyle: {
+    justifyContent: "center",
     alignItems: "center",
   },
   inputContainerStyle: {
@@ -189,14 +181,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
     borderTopWidth: 0,
     borderRadius: 10,
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 2,
-    // },
-    // shadowOpacity: 0.25,
-    // shadowRadius: 3.84,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
 
-    // elevation: 5,
+    elevation: 5,
   },
 });
 

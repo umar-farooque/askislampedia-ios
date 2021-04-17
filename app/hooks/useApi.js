@@ -24,9 +24,9 @@ export default useApi = (apiFunc, articles = false) => {
 
     setError(false);
     if (articles) return setData(splitData(response.data));
-    console.log("====================================");
-    console.log("response", response.data);
-    console.log("====================================");
+    // console.log("====================================");
+    // console.log("response", response.data);
+    // console.log("====================================");
     setData(response.data);
   };
 

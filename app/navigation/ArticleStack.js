@@ -17,6 +17,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
 import WebViewScreen from "../screens/WebViewScreen";
 import AllArticles from "../screens/AllArticles";
+import SearchScreen from "../screens/SearchScreen";
 
 const Stack = createStackNavigator();
 
@@ -41,6 +42,11 @@ function ArticleStack(props) {
         name="AllArticles"
         component={AllArticles}
         options={{ title: "Articles" }}
+      />
+      <Stack.Screen
+        name="Search Screen"
+        component={SearchScreen}
+        options={{ title: "Search" }}
       />
       <Stack.Screen
         name="Webview"

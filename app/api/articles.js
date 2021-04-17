@@ -14,7 +14,7 @@ function random(array) {
 }
 
 const getListings = () => client.get(endPoint);
-const getDetails = (url) => HtmlClient.get(`${endPoint}/${url}`);
+const getDetails = () => HtmlClient.get(`${endPoint}/hajj`);
 
 const getRandomArticle = async () => {
   let response = await client.get(endPoint);

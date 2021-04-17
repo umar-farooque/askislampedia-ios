@@ -4,6 +4,7 @@ import EbookScreen from "../screens/EbookScreen";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
+import WebViewScreen from "../screens/WebViewScreen";
 
 const Stack = createStackNavigator();
 
@@ -17,6 +18,11 @@ const EbookStack = () => {
         options={{
           title: "E-Book",
         }}
+      />
+      <Stack.Screen
+        name="Webview"
+        component={WebViewScreen}
+        options={({ route }) => ({ title: route.params.title })}
       />
     </Stack.Navigator>
   );
