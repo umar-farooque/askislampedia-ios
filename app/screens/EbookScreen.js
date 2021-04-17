@@ -42,6 +42,7 @@ function EbookScreen({ navigation }) {
     getArticles.request();
   }, []);
   let handleLinkPress = (href) => {
+    //testing
     let url = href.split("/");
     const api =
       "https://askislampedia.com/Quranic-portlet/rest/getTitles/English_wiki/";
