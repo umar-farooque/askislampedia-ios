@@ -7,17 +7,14 @@ import {
   useWindowDimensions,
   ActivityIndicator,
 } from "react-native";
-import AppText from "../components/AppText";
-import Screen from "../components/Screen";
+
 import ScrollToTop from "../components/ScrollToTop";
 import useApi from "../hooks/useApi";
 import articles from "../api/articles";
-import AppButton from "../components/AppButton";
 
 import HTML from "react-native-render-html";
 import table, { IGNORED_TAGS } from "@native-html/table-plugin";
 import { WebView } from "react-native-webview";
-import Seperator from "../components/Seperator";
 
 const htmlProps = {
   WebView,
@@ -27,15 +24,23 @@ const htmlProps = {
   ignoredTags: IGNORED_TAGS,
 };
 let tagsStyles = {
-  p: { fontSize: 18, marginVertical: 5 },
+  p: {
+    fontSize: 15,
+    marginVertical: 5,
+    textAlign: "left",
+    fontWeight: "400",
+  },
+  h2: { fontSize: 21, fontWeight: "500", marginVertical: 5 },
+  h1: {
+    fontSize: 22,
+    fontWeight: "600",
+    marginVertical: 5,
+  },
   table: { width: Dimensions.get("screen").width },
-  h2: { fontSize: 22, fontWeight: "800" },
-  h1: { fontSize: 24 },
   ol: { marginTop: 20 },
   th: { textAlign: "left" },
   li: { fontSize: 18 },
 };
-
 function computeEmbeddedMaxWidth(contentWidth, tagName) {
   if (tagName === "img") {
     return Math.min(contentWidth, 500);
@@ -44,8 +49,40 @@ function computeEmbeddedMaxWidth(contentWidth, tagName) {
 }
 
 function DetailScreen({ route, navigation }) {
-  let Title = route.params.title;
-  // console.log(route.params);
+  const contentWidth = useWindowDimensions().width;
+  let url = route.params.url;
+  url = url.split("/");
+  url = url[url.length - 1];
+  let newUrl = url.split("+").join("%20");
+  console.log(newUrl);
+  let getArticles = useApi(() => articles.getDetails(newUrl));
+
+  useEffect(() => {
+    getArticles.request();
+  }, []);
+
+  let handleLinkPress = (evt, href, htmlAttr) => {
+    let url = href.split("/");
+    url = url[url.length - 1];
+    if (url.includes("#")) url = url.split("#")[0];
+    let newUrl = url.split("+").join("%20");
+    let title = decodeURI(url).split("+").join(" ");
+    //console.log(url, title);
+
+    let quran = "http://www.askislampedia.com/quran/-/view";
+    if (href.includes("askislampedia") && !href.includes(quran)) {
+      console.log("internal");
+      navigation.navigate("Internal Links", {
+        title,
+        url: newUrl,
+      });
+    } else if (href.includes("http" || "https") & !href.includes(quran)) {
+      navigation.navigate("Webview", { title: "title", url: href });
+      console.log(href);
+    } else {
+      console.log(href);
+    }
+  };
 
   let scroll = useRef();
 
@@ -67,7 +104,22 @@ function DetailScreen({ route, navigation }) {
         onScrollBeginDrag={handleScollDrag}
         onMomentumScrollEnd={handleMomentumScrollEnd}
       >
-        <View style={styles.card}>
+        {getArticles.loading && (
+          <ActivityIndicator color="black" size="large" />
+        )}
+        <HTML
+          {...htmlProps}
+          source={{ html: getArticles.data }}
+          contentWidth={contentWidth}
+          tagsStyles={tagsStyles}
+          onLinkPress={(evt, href, htmlAttr) =>
+            handleLinkPress(evt, href, htmlAttr)
+          }
+          ignoredTags={[...IGNORED_TAGS, "img", "hr", "table"]}
+          containerStyle={{ flex: 1, padding: 5, marginTop: 15 }}
+          computeEmbeddedMaxWidth={computeEmbeddedMaxWidth}
+        />
+        {/* <View style={styles.card}>
           <View style={styles.headingContainer}>
             <AppText style={styles.heading}>{Title}</AppText>
           </View>
@@ -124,7 +176,7 @@ function DetailScreen({ route, navigation }) {
               }
             />
           </View>
-        </View>
+        </View> */}
       </ScrollView>
       {visible && <ScrollToTop onPress={handleScrollToTop} />}
     </>

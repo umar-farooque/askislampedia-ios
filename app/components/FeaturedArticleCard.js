@@ -4,7 +4,7 @@ import AppText from "./AppText";
 
 function FeaturedArticleCard({ onPress }) {
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <View style={styles.container} onPress={onPress}>
       <View>
         <View style={styles.headingContainer}>
           <AppText style={styles.heading} lines={1}>
@@ -21,7 +21,7 @@ function FeaturedArticleCard({ onPress }) {
           </AppText>
         </View>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 }
 const styles = StyleSheet.create({
@@ -30,6 +30,13 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     padding: 15,
     borderRadius: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
   },
   headingContainer: { marginBottom: 5 },
   heading: { fontSize: 35 },

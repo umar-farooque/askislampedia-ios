@@ -2,93 +2,34 @@ import React, { useRef, useState } from "react";
 import { FlatList, ScrollView, View, StyleSheet } from "react-native";
 
 import { SearchBar } from "react-native-elements";
-
+import _ from "lodash";
 import Seperator from "../components/Seperator";
 import TopReadCard from "../components/TopReadCard";
 import ScrollToTop from "../components/ScrollToTop";
 import AppButton from "../components/AppButton";
+import { AllArticles as article } from "../utils/data";
 
-let articles = [
-  { title: "Divorce or Talaq" },
-  { title: "Khula" },
-  { title: "Increasing Rape Cases - Few reasons & solutions" },
-  { title: "Ideal Muslim Wife" },
-  { title: "Seeking Knowledge To Paradise" },
-  { title: "Abu Huraira" },
-  { title: "Aisha" },
-  { title: "Khalid Bin Waleed" },
-  { title: "Fatima" },
-  { title: "Umm Sulaym" },
-  { title: "Saad Bin Abi Waqqas" },
-  { title: "Talha" },
-  { title: "Khulfa E Rashideen" },
-  { title: "Radhiallahu Anhu" },
-  { title: "Umm Al Momineen" },
-  { title: "Who is Allah ?" },
-  { title: "The Mercy Of Allah" },
-  { title: "Rights Of Allah" },
-  { title: "Meaning Of La Ilaha Illallah" },
-  { title: "Names and Attributes Of Allah" },
-  { title: "Worshipping Allah out of Love Fear & Hope" },
-  { title: "Who is Muhammad sallalhu alayhi wa sallam?" },
-  { title: "Prophet Muhammad as the Best Role Model" },
-  { title: "What  Prophet Muhammad Gave To Humanity?" },
-  { title: "The Last Sermon Of Prophet Muhammad" },
-  { title: "The Importance Of Adhering To The Final Messenger" },
-  { title: "What Eminent Non-Muslims Said About Muhammad" },
-  { title: "Muharram" },
-  { title: "Safar" },
-  { title: "Rabi-ul-Awwal" },
-  { title: "Rabi-ul-Akhir" },
-  { title: "Jumada-al-Oola" },
-  { title: "Jumada-al-Akhirah" },
-  { title: "Rajab" },
-  { title: "Shaban" },
-  { title: "Ramadhan" },
-  { title: "Shahda" },
-  { title: "Salah" },
-  { title: "Saum" },
-  { title: "Zakat" },
-  { title: "Hajj" },
-  { title: "Belief In Allah" },
-  { title: "Belief In The  Angels" },
-  { title: "Belief In The Revealed Books" },
-  { title: "Belief In The Messengers" },
-  { title: "Belief In The Day Of Resurrection" },
-  { title: "Belief In Destiny" },
-  { title: "Liberation Of Women Through Islam" },
-  { title: "Women's Turning Towards Islam" },
-  { title: "Pregnancy" },
-  { title: "Hijab" },
-  { title: "Recepies" },
-  { title: "Children" },
-  { title: "Aqeeqah" },
-  { title: "Arabic Learnings" },
-  { title: "Kids Courses" },
-  { title: "Islamic Home Schooling" },
-  { title: "Islamic Cartoons" },
-  { title: "Naming Your Newborn" },
-];
+let sortData = (array) => _.sortBy(array, ["title"]);
 
 function AllArticles({ navigation }) {
   let scroll = useRef();
-
+  let sortedData = sortData(article);
   let [visible, setVisible] = useState(false);
-  let [data, setData] = useState([...articles.slice(0, 10)]);
+  let [data, setData] = useState(sortData([...sortedData.slice(0, 30)]));
   let [buttonVisible, setButtonVisible] = useState(true);
   let [page, setPage] = useState(1);
 
   let loadMore = () => {
-    let ITEMS_PER_PAGE = 10;
+    let ITEMS_PER_PAGE = 30;
 
     const start = page * ITEMS_PER_PAGE;
     const end = (page + 1) * ITEMS_PER_PAGE;
-    const newData = articles.slice(start, end); // here, we will receive next batch of the items
+    const newData = sortedData.slice(start, end); // here, we will receive next batch of the items
 
-    if (articles.length - data.length <= ITEMS_PER_PAGE) {
+    if (sortedData.length - data.length <= ITEMS_PER_PAGE) {
       setButtonVisible(false);
     }
-    if (articles.length <= data.length) return data;
+    if (sortedData.length <= data.length) return data;
     setData([...data, ...newData]);
     setPage(page + 1);
 
@@ -96,7 +37,6 @@ function AllArticles({ navigation }) {
     // console.log(articles.length - data.length);
     // console.log("====================================");
   };
-
   let handleScollDrag = () => setVisible(true);
 
   let handleScrollToTop = () => {
@@ -107,7 +47,7 @@ function AllArticles({ navigation }) {
   let handleMomentumScrollEnd = (event) => {
     if (!event.nativeEvent.contentOffset.y > 0) setVisible(false);
   };
-
+  // console.log("--->>>>>>>>", [...articles]);
   return (
     <>
       <ScrollView
@@ -135,6 +75,7 @@ function AllArticles({ navigation }) {
                 onPress={() =>
                   navigation.navigate("Detail Screen", {
                     title: item.item.title,
+                    url: item.item.main_url,
                   })
                 }
               />

@@ -18,6 +18,8 @@ import { useNavigation } from "@react-navigation/native";
 import WebViewScreen from "../screens/WebViewScreen";
 import AllArticles from "../screens/AllArticles";
 import SearchScreen from "../screens/SearchScreen";
+import InternalLinksScreen from "../screens/InternalLinksScreen";
+import NextScreen from "../screens/NextScreen";
 
 const Stack = createStackNavigator();
 
@@ -51,6 +53,16 @@ function ArticleStack(props) {
       <Stack.Screen
         name="Webview"
         component={WebViewScreen}
+        options={({ route }) => ({ title: route.params.title })}
+      />
+      <Stack.Screen
+        name="Internal Links"
+        component={InternalLinksScreen}
+        options={({ route }) => ({ title: route.params.title })}
+      />
+      <Stack.Screen
+        name="Next"
+        component={NextScreen}
         options={({ route }) => ({ title: route.params.title })}
       />
     </Stack.Navigator>
