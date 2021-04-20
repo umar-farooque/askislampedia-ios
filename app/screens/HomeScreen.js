@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { FlatList, ScrollView, StyleSheet, View } from "react-native";
 
+import { SearchBar } from "react-native-elements";
+
 import {
   Allah,
   Muhammad,
@@ -11,6 +13,7 @@ import {
   pillars,
   Months,
 } from "../utils/data";
+import color from "../utils/colors";
 
 import AppText from "../components/AppText";
 import FeaturedArticleCard from "../components/FeaturedArticleCard";
@@ -18,15 +21,15 @@ import ReadMoreIcon from "../components/ReadMoreIcon";
 import Seperator from "../components/Seperator";
 import TopReadCard from "../components/TopReadCard";
 import ScrollToTop from "../components/ScrollToTop";
-
+import HeaderReadMore from "../components/HeaderReadMore";
 function HomeScreen({ navigation }) {
   let scroll = useRef();
   let [visible, setVisible] = useState(false);
 
-  let handlePress = () => console.log("Press");
-  // navigation.navigate("Detail Screen", {
-  //   title: "Featured Article",
-  // });
+  let handlePress = () =>
+    navigation.navigate("Detail Screen", {
+      title: "Featured Article",
+    });
   let handleScollDrag = () => setVisible(true);
   let handleScrollToTop = () => {
     scroll.current.scrollTo({ animated: true }, 0);
@@ -37,18 +40,34 @@ function HomeScreen({ navigation }) {
   };
   let handleReadMore = () => navigation.navigate("AllArticles");
   return (
-    <>
+    <View
+      style={{
+        flex: 1,
+        paddingHorizontal: 15,
+        backgroundColor: color.backgroundColor,
+      }}
+    >
+      <View style={styles.searchContainer}>
+        <SearchBar
+          placeholder="Search ..."
+          containerStyle={styles.containerStyle}
+          inputStyle={styles.inputStyle}
+          inputContainerStyle={styles.inputContainerStyle}
+          onFocus={() => navigation.navigate("Search Screen")}
+        />
+      </View>
       <ScrollView
         ref={scroll}
         style={styles.container}
         onScrollBeginDrag={handleScollDrag}
         onMomentumScrollEnd={handleMomentumScrollEnd}
+        showsVerticalScrollIndicator={false}
       >
-        <View style={styles.featuredContainer}>
+        {/* <View style={styles.featuredContainer}>
           <AppText style={styles.text}>Featured article</AppText>
           <FeaturedArticleCard onPress={handlePress} />
           <ReadMoreIcon onPress={handlePress} />
-        </View>
+        </View> */}
         {/* Articles About Allah */}
         <View style={styles.articlesContainer}>
           <AppText style={styles.text}>Read About Allah</AppText>
@@ -238,11 +257,37 @@ function HomeScreen({ navigation }) {
         </View>
       </ScrollView>
       {visible && <ScrollToTop onPress={handleScrollToTop} />}
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  searchContainer: {
+    justifyContent: "center",
+    marginTop: 15,
+    marginBottom: 10,
+    alignItems: "center",
+  },
+  inputContainerStyle: {
+    borderRadius: 25,
+    backgroundColor: "white",
+  },
+  inputStyle: { backgroundColor: "white" },
+  containerStyle: {
+    padding: 0,
+    width: "100%",
+    backgroundColor: "white",
+    borderBottomWidth: 0,
+    borderTopWidth: 0,
+    borderRadius: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
   articlesContainer: {
     // marginTop: 20,
     // marginBottom: 10,
@@ -261,13 +306,12 @@ const styles = StyleSheet.create({
     shadowRadius: 6.27,
   },
   container: {
-    paddingHorizontal: 15,
-    backgroundColor: "#F1F1F1",
+    backgroundColor: color.backgroundColor,
   },
   featuredContainer: {
     marginTop: 20,
   },
-  text: { fontSize: 24, marginBottom: 15 },
+  text: { fontSize: 24, marginBottom: 15, fontWeight: "500" },
 });
 // console.log();
 export default HomeScreen;

@@ -2,14 +2,16 @@ import React, { useRef, useState } from "react";
 import { FlatList, ScrollView, View, StyleSheet } from "react-native";
 
 import { SearchBar } from "react-native-elements";
-import _ from "lodash";
+
 import Seperator from "../components/Seperator";
 import TopReadCard from "../components/TopReadCard";
 import ScrollToTop from "../components/ScrollToTop";
 import AppButton from "../components/AppButton";
 import { AllArticles as article } from "../utils/data";
 
-let sortData = (array) => _.sortBy(array, ["title"]);
+import { sortData } from "../utils/sort";
+
+import colors from "../utils/colors";
 
 function AllArticles({ navigation }) {
   let scroll = useRef();
@@ -32,10 +34,6 @@ function AllArticles({ navigation }) {
     if (sortedData.length <= data.length) return data;
     setData([...data, ...newData]);
     setPage(page + 1);
-
-    // console.log("====================================");
-    // console.log(articles.length - data.length);
-    // console.log("====================================");
   };
   let handleScollDrag = () => setVisible(true);
 
@@ -47,24 +45,26 @@ function AllArticles({ navigation }) {
   let handleMomentumScrollEnd = (event) => {
     if (!event.nativeEvent.contentOffset.y > 0) setVisible(false);
   };
-  // console.log("--->>>>>>>>", [...articles]);
+
   return (
-    <>
+    <View style={styles.container}>
+      <View style={styles.searchContainer}>
+        <SearchBar
+          placeholder="Search articles..."
+          containerStyle={styles.containerStyle}
+          inputStyle={styles.inputStyle}
+          inputContainerStyle={styles.inputContainerStyle}
+          onFocus={() => navigation.navigate("Search Screen")}
+        />
+      </View>
+      <View style={styles.scrollViewContainer} />
       <ScrollView
-        style={{ flex: 1, padding: 15, backgroundColor: "#F1F1F1" }}
+        style={{ flex: 1, marginTop: 15 }}
         ref={scroll}
         onScrollBeginDrag={handleScollDrag}
         onMomentumScrollEnd={handleMomentumScrollEnd}
+        showsVerticalScrollIndicator={false}
       >
-        <View style={styles.searchContainer}>
-          <SearchBar
-            placeholder="Search articles..."
-            containerStyle={styles.containerStyle}
-            inputStyle={styles.inputStyle}
-            inputContainerStyle={styles.inputContainerStyle}
-            onFocus={() => navigation.navigate("Search Screen")}
-          />
-        </View>
         <View style={styles.articlesContent}>
           <FlatList
             data={data}
@@ -91,19 +91,42 @@ function AllArticles({ navigation }) {
         </View>
       </ScrollView>
       {visible && <ScrollToTop onPress={handleScrollToTop} />}
-    </>
+    </View>
   );
 }
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.backgroundColor,
+    flex: 1,
+    paddingHorizontal: 15,
+  },
+  scrollViewContainer: {
+    position: "absolute",
+    backgroundColor: "white",
+    height: 50,
+    width: "100%",
+    top: "14%",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    alignSelf: "center",
+  },
   articlesContent: {
     backgroundColor: "white",
     overflow: "hidden",
     borderRadius: 20,
     marginBottom: 30,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   searchContainer: {
     justifyContent: "center",
-    marginBottom: 10,
+    marginVertical: 15,
     alignItems: "center",
   },
   listFooterComponentStyle: {
@@ -121,7 +144,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderBottomWidth: 0,
     borderTopWidth: 0,
-    borderRadius: 10,
+    borderRadius: 20,
     shadowOffset: {
       width: 0,
       height: 2,

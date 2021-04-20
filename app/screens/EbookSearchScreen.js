@@ -1,34 +1,37 @@
 import React, { useState } from "react";
-import { StyleSheet, View, ScrollView, FlatList } from "react-native";
+import { ScrollView, StyleSheet, FlatList, View } from "react-native";
 
 import Seperator from "../components/Seperator";
 import TopReadCard from "../components/TopReadCard";
 
-import { searchArticles } from "../utils/data";
+import { searchEbooks } from "../utils/data";
 import { sortData } from "../utils/sort";
 
 import { SearchBar } from "react-native-elements";
+import colors from "../utils/colors";
 
-function SearchScreen({ navigation }) {
+function EbookSearchScreen({ navigation }) {
   let [data, setData] = useState([]);
   let [query, setQuery] = useState("");
-
+  //   console.log("************************", data.length);
   let handleSearch = (str) => {
+    // console.log("********************", str);
     setQuery(str);
     if (str === "") {
       setData([]);
       return;
     }
-    let result = searchArticles(query);
+    let result = searchEbooks(query);
     setData(sortData(result));
   };
 
   let handleCancel = () => setData([]);
+
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
         <SearchBar
-          placeholder="Search Articles..."
+          placeholder="Search Ebook..."
           containerStyle={styles.containerStyle}
           inputStyle={styles.inputStyle}
           inputContainerStyle={styles.inputContainerStyle}
@@ -39,11 +42,14 @@ function SearchScreen({ navigation }) {
           value={query}
         />
       </View>
-      {data.length !== 0 && data.length > 1 && (
+      {data.length > 1 && data.length !== 0 && (
         <View style={styles.scrollViewContainer} />
       )}
       {data.length !== 0 && (
-        <ScrollView style={{ flex: 1, marginTop: 15 }}>
+        <ScrollView
+          style={{ flex: 1, marginTop: 15 }}
+          showsVerticalScrollIndicator={false}
+        >
           <View style={styles.ebookContainer}>
             <FlatList
               data={data}
@@ -52,7 +58,7 @@ function SearchScreen({ navigation }) {
                 <TopReadCard
                   title={item.item.title}
                   onPress={() =>
-                    navigation.navigate("Detail Screen", {
+                    navigation.navigate("Webview", {
                       title: item.item.title,
                       url: item.item.main_url,
                     })
@@ -60,6 +66,7 @@ function SearchScreen({ navigation }) {
                 />
               )}
               ItemSeparatorComponent={Seperator}
+              showsVerticalScrollIndicator={false}
             />
           </View>
         </ScrollView>
@@ -68,25 +75,26 @@ function SearchScreen({ navigation }) {
   );
 }
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingHorizontal: 15,
+    backgroundColor: colors.backgroundColor,
+  },
   scrollViewContainer: {
     position: "absolute",
     backgroundColor: "white",
-    height: 200,
+    height: 100,
     width: "100%",
     top: "14%",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     alignSelf: "center",
   },
-  container: {
-    flex: 1,
-    paddingHorizontal: 15,
-  },
   ebookContainer: {
     backgroundColor: "white",
     overflow: "hidden",
     borderRadius: 20,
-    marginBottom: 30,
+    marginBottom: 20,
     marginTop: 10,
     shadowOffset: {
       width: 0,
@@ -128,4 +136,4 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
 });
-export default SearchScreen;
+export default EbookSearchScreen;

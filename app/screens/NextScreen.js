@@ -1,11 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import {
-  Dimensions,
   ScrollView,
   useWindowDimensions,
   ActivityIndicator,
 } from "react-native";
-import AppText from "../components/AppText";
 
 import { WebView } from "react-native-webview";
 import HTML from "react-native-render-html";
@@ -21,10 +19,18 @@ const htmlProps = {
   ignoredTags: IGNORED_TAGS,
 };
 let tagsStyles = {
-  p: { fontSize: 18, marginVertical: 5 },
-  table: { width: Dimensions.get("screen").width },
-  h2: { fontSize: 22, fontWeight: "700" },
-  h1: { fontSize: 24 },
+  p: {
+    fontSize: 15,
+    marginVertical: 5,
+    textAlign: "left",
+    fontWeight: "400",
+  },
+  h2: { fontSize: 21, fontWeight: "500", marginVertical: 5 },
+  h1: {
+    fontSize: 22,
+    fontWeight: "600",
+    marginVertical: 5,
+  },
   ol: { marginTop: 20 },
   li: { fontSize: 18 },
 };
@@ -64,7 +70,7 @@ function NextScreen(props) {
         url: newUrl,
       });
     } else if (href.includes("http" || "https") && !href.includes(quran)) {
-      props.navigation.navigate("Webview", { title: "title", url: href });
+      props.navigation.navigate("Webview", { url: href });
     } else {
       console.log(href);
     }
@@ -76,7 +82,6 @@ function NextScreen(props) {
   }, [url]);
   return (
     <ScrollView style={{ flex: 1 }} ref={webviewRef}>
-      {/* <AppText>Next Screen</AppText> */}
       {getArticles.loading && <ActivityIndicator color="black" size="large" />}
       <HTML
         {...htmlProps}

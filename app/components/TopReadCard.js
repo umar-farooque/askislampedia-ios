@@ -7,7 +7,7 @@ function TopReadCard({ title, onPress }) {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={styles.content}>
-        <AppText>{title}</AppText>
+        <AppText style={styles.text}>{title}</AppText>
       </View>
     </TouchableOpacity>
   );
@@ -23,6 +23,9 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     padding: 17,
     justifyContent: "center",
+  },
+  text: {
+    textAlign: "left",
   },
 });
 

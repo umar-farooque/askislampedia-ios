@@ -1,85 +1,22 @@
-import React, { useEffect, useState } from "react";
-import {
-  View,
-  Dimensions,
-  ScrollView,
-  useWindowDimensions,
-  StyleSheet,
-  FlatList,
-  ActivityIndicator,
-} from "react-native";
-import AppText from "../components/AppText";
-import { WebView } from "react-native-webview";
-import HTML from "react-native-render-html";
-import table, { IGNORED_TAGS } from "@native-html/table-plugin";
-import useApi from "../hooks/useApi";
-import articles from "../api/articles";
+import React, { useState, useRef } from "react";
+import { View, ScrollView, StyleSheet, FlatList } from "react-native";
+
 import { Ebooks } from "../utils/data";
 import Seperator from "../components/Seperator";
 import TopReadCard from "../components/TopReadCard";
 import AppButton from "../components/AppButton";
-import _ from "lodash";
+import ScrollToTop from "../components/ScrollToTop";
+import { SearchBar } from "react-native-elements";
+import { sortData } from "../utils/sort";
+import colors from "../utils/colors";
 
-const htmlProps = {
-  WebView,
-  renderers: {
-    table,
-  },
-  ignoredTags: IGNORED_TAGS,
-};
-let tagsStyles = {
-  p: {
-    fontSize: 15,
-    marginVertical: 5,
-    textAlign: "left",
-    fontWeight: "400",
-  },
-  h2: { fontSize: 21, fontWeight: "500", marginVertical: 5 },
-  h1: {
-    fontSize: 22,
-    fontWeight: "600",
-    marginVertical: 5,
-  },
-  table: { width: Dimensions.get("screen").width },
-  ol: { marginTop: 20 },
-  th: { textAlign: "left" },
-  li: { fontSize: 18 },
-};
-function computeEmbeddedMaxWidth(contentWidth, tagName) {
-  if (tagName === "img") {
-    return Math.min(contentWidth, 500);
-  }
-  return contentWidth;
-}
-let sortData = (array) => _.sortBy(array, ["title"]);
 function EbookScreen({ navigation }) {
   let sortedData = sortData(Ebooks);
+  let [visible, setVisible] = useState(false);
+  let scroll = useRef();
   let [data, setData] = useState([...sortedData.slice(0, 40)]);
   let [buttonVisible, setButtonVisible] = useState(true);
   let [page, setPage] = useState(1);
-
-  let handleLinkPress = (href) => {
-    //testing
-    let url = href.split("/");
-    const api =
-      "https://askislampedia.com/Quranic-portlet/rest/getTitles/English_wiki/";
-    url = url[url.length - 1];
-    console.log(api + url.split("+").join("%20"));
-    let newUrl = url.split("+").join("%20");
-    if (
-      (href.includes("http") || href.includes("https")) &&
-      href.includes("askislampedia")
-    ) {
-      navigation.navigate("Internal Links", {
-        title: "Internal Links Title",
-        url: newUrl,
-      });
-    } else if (href.includes("http" || "https")) {
-      props.navigation.navigate("Webview", { title: "title", url: href });
-    } else {
-      console.log(href);
-    }
-  };
 
   let loadMore = () => {
     let ITEMS_PER_PAGE = 40;
@@ -95,10 +32,35 @@ function EbookScreen({ navigation }) {
     setData([...data, ...newData]);
     setPage(page + 1);
   };
+  let handleScollDrag = () => setVisible(true);
+
+  let handleScrollToTop = () => {
+    scroll.current.scrollTo({ animated: true }, 0);
+    setVisible(false);
+  };
+
+  let handleMomentumScrollEnd = (event) => {
+    if (!event.nativeEvent.contentOffset.y > 0) setVisible(false);
+  };
   return (
-    <>
-      <ScrollView style={{ flex: 1, paddingHorizontal: 5 }}>
-        <AppText>Ebook Screen </AppText>
+    <View style={styles.container}>
+      <View style={styles.searchContainer}>
+        <SearchBar
+          placeholder="Search Ebooks..."
+          containerStyle={styles.containerStyle}
+          inputStyle={styles.inputStyle}
+          inputContainerStyle={styles.inputContainerStyle}
+          onFocus={() => navigation.navigate("Ebook Search Screen")}
+        />
+      </View>
+      <View style={styles.scrollViewContainer} />
+      <ScrollView
+        style={{ flex: 1, marginTop: 15 }}
+        ref={scroll}
+        onScrollBeginDrag={handleScollDrag}
+        onMomentumScrollEnd={handleMomentumScrollEnd}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.ebookContainer}>
           <FlatList
             data={data}
@@ -124,19 +86,71 @@ function EbookScreen({ navigation }) {
           />
         </View>
       </ScrollView>
-    </>
+      {visible && <ScrollToTop onPress={handleScrollToTop} />}
+    </View>
   );
 }
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.backgroundColor,
+    flex: 1,
+    paddingHorizontal: 15,
+  },
+  scrollViewContainer: {
+    position: "absolute",
+    backgroundColor: "white",
+    height: 200,
+    width: "100%",
+    top: "14%",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    alignSelf: "center",
+  },
+
   ebookContainer: {
     backgroundColor: "white",
     overflow: "hidden",
     borderRadius: 20,
     marginBottom: 30,
+
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   listFooterComponentStyle: {
     justifyContent: "center",
     alignItems: "center",
+  },
+  searchContainer: {
+    justifyContent: "center",
+    marginVertical: 15,
+    alignItems: "center",
+  },
+  inputContainerStyle: {
+    borderRadius: 25,
+    backgroundColor: "white",
+  },
+  inputStyle: { backgroundColor: "white" },
+  containerStyle: {
+    padding: 0,
+    width: "100%",
+    backgroundColor: "white",
+    borderBottomWidth: 0,
+    borderTopWidth: 0,
+    borderRadius: 20,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
 });
 export default EbookScreen;

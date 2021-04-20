@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import {
-  View,
-  Dimensions,
+  StyleSheet,
   ScrollView,
   useWindowDimensions,
   ActivityIndicator,
 } from "react-native";
-import AppText from "../components/AppText";
+
 import useApi from "../hooks/useApi";
 import getArticles from "../api/articles";
 import { WebView } from "react-native-webview";
 import HTML from "react-native-render-html";
 import table, { IGNORED_TAGS } from "@native-html/table-plugin";
+import colors from "../utils/colors";
 
 const htmlProps = {
   WebView,
@@ -24,16 +24,28 @@ let tagsStyles = {
   p: {
     fontSize: 15,
     marginVertical: 5,
-    textAlign: "justify",
-    fontWeight: "300",
+    textAlign: "left",
+    fontWeight: "400",
   },
-  table: { width: Dimensions.get("screen").width },
   h2: { fontSize: 21, fontWeight: "500", marginVertical: 5 },
-  h1: { fontSize: 24, fontWeight: "600", marginVertical: 5 },
+  h1: {
+    fontSize: 22,
+    fontWeight: "600",
+    marginVertical: 5,
+  },
+
   ol: { marginTop: 20 },
-  th: { textAlign: "left" },
+
   li: { fontSize: 18 },
 };
+let ignoreTags = [
+  ...IGNORED_TAGS,
+  "img",
+  "hr",
+  "table",
+  "font-family",
+  "letter-spacing",
+];
 function computeEmbeddedMaxWidth(contentWidth, tagName) {
   if (tagName === "img") {
     return Math.min(contentWidth, 500);
@@ -46,6 +58,11 @@ function InternalLinksScreen(props) {
   let url = props.route.params.url;
   console.log(url);
   let getArticlesApi = useApi(() => getArticles.getDetails(url));
+
+  useEffect(() => {
+    getArticlesApi.request();
+  }, []);
+
   let handleLinkPress = (href) => {
     let url = href.split("/");
     url = url[url.length - 1];
@@ -60,19 +77,14 @@ function InternalLinksScreen(props) {
         url: newUrl,
       });
     } else if (href.includes("http" || "https") && !href.includes(quran)) {
-      props.navigation.navigate("Webview", { title: "title", url: href });
+      props.navigation.navigate("Webview", { url: href });
     } else {
       console.log(href);
     }
   };
 
-  useEffect(() => {
-    getArticlesApi.request();
-  }, []);
-
   return (
-    <ScrollView style={{ flex: 1 }}>
-      {/* <AppText>Internal Links Screen </AppText> */}
+    <ScrollView style={styles.container}>
       {getArticles.loading && <ActivityIndicator color="black" size="large" />}
       <HTML
         {...htmlProps}
@@ -80,21 +92,16 @@ function InternalLinksScreen(props) {
         contentWidth={contentWidth}
         tagsStyles={tagsStyles}
         onLinkPress={(evt, href) => handleLinkPress(href)}
-        ignoredTags={[
-          ...IGNORED_TAGS,
-          "img",
-          "hr",
-          "table",
-          "font-family",
-          "letter-spacing",
-        ]}
-        // onParsed={(result) => console.log("======================>", result)}
-        // alterNode={handleAlterNode}
+        ignoredTags={ignoreTags}
         containerStyle={{ flex: 1, padding: 5, marginTop: 15 }}
         computeEmbeddedMaxWidth={computeEmbeddedMaxWidth}
       />
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: colors.backgroundColor },
+});
 
 export default InternalLinksScreen;

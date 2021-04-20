@@ -1,145 +1,334 @@
+export let searchEbooks = (str) =>
+  Ebooks.filter(
+    (ebook) => ebook.title.toLowerCase().indexOf(str.toLowerCase()) > -1
+  );
+
+export let searchArticles = (str) =>
+  AllArticles.filter(
+    (article) => article.title.toLowerCase().indexOf(str.toLowerCase()) > -1
+  );
+
 export let Allah = [
   {
     title: "Who is Allah ?",
     main_url:
-      "Allah+%D8%B3%D8%A8%D8%AD%D8%A7%D9%86%D9%87+%D9%88+%D8%AA%D8%B9%D8%A7%D9%84%D9%89",
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Allah+%D8%B3%D8%A8%D8%AD%D8%A7%D9%86%D9%87+%D9%88+%D8%AA%D8%B9%D8%A7%D9%84%D9%89",
   },
   {
     title: "The Mercy Of Allah",
-    main_url: "Mercy+of+Allah",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Mercy+of+Allah",
   },
   {
     title: "Rights Of Allah",
-    main_url: "Rights+Of+Allah",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Rights+Of+Allah",
   },
   {
     title: "Meaning Of La Ilaha Illallah",
-    main_url: "Laa+ilaha+illallah",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Laa+ilaha+illallah",
   },
   {
     title: "Names and Attributes Of Allah",
-    main_url: "Names+and+Attributes+of+ALLAAH",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Names+and+Attributes+of+ALLAAH",
   },
   {
     title: "Worshipping Allah out of Love Fear & Hope",
-    main_url: "Worshipping+ALLAH+out+of+Love+Fear+and+Hope",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Worshipping+ALLAH+out+of+Love+Fear+and+Hope",
   },
 ];
 
 export let Muhammad = [
   {
     title: "Who is Muhammad sallalhu alayhi wa sallam?",
-    main_url: "MUHAMMAD-+THE+UNIVERSAL+MESSENGER",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/MUHAMMAD-+THE+UNIVERSAL+MESSENGER",
   },
   {
     title: "Prophet Muhammad as the Best Role Model",
-    main_url: "Prophet Muhammad ﷺ  As The Best Role Model",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Prophet Muhammad ﷺ  As The Best Role Model",
   },
   {
     title: "What  Prophet Muhammad Gave To Humanity?",
-    main_url: "What Prophet Muhammad ﷺ Gave to Humanity",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/What Prophet Muhammad ﷺ Gave to Humanity",
   },
   {
     title: "The Last Sermon Of Prophet Muhammad",
-    main_url: "Last Sermon of Prophet Muhammad ﷺ",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Last Sermon of Prophet Muhammad ﷺ",
   },
   {
     title: "The Importance Of Adhering To The Final Messenger",
-    main_url: "Importance+of+Adhering+to+the+Final+Messenger",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Importance+of+Adhering+to+the+Final+Messenger",
   },
   {
     title: "What Eminent Non-Muslims Said About Muhammad",
-    main_url: "What Eminent Non Muslims say about Prophet Muhammad ﷺ",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/What Eminent Non Muslims say about Prophet Muhammad ﷺ",
   },
 ];
 export let current = [
-  { title: "Divorce or Talaq", main_url: "Divorce+or+Talaq" },
-  { title: "Khula", main_url: "Khula+or+Khul" },
+  {
+    title: "Divorce or Talaq",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Divorce+or+Talaq",
+  },
+  {
+    title: "Khula",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Khula+or+Khul",
+  },
   {
     title: "Increasing Rape Cases - Few reasons & solutions",
-    main_url: "Rape+Cases",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Rape+Cases",
   },
-  { title: "Ideal Muslim Wife", main_url: "Ideal+Muslim+Wife" },
+  {
+    title: "Ideal Muslim Wife",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Ideal+Muslim+Wife",
+  },
   {
     title: "Seeking Knowledge To Paradise",
-    main_url: "Seeking+knowledge+-+The+way+to+paradise",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Seeking+knowledge+-+The+way+to+paradise",
   },
 ];
 export let topArticles = [
-  { title: "Abu Huraira", main_url: "Abu+Hurairah" },
-  { title: "Aisha", main_url: "Aisha+Bint+Abi+Bakr" },
-  { title: "Khalid Bin Waleed", main_url: "Khalid+Ibn+Al+Waleed" },
-  { title: "Fatima", main_url: "Fatima+Bint+Muhammad" },
-  { title: "Umm Sulaym", main_url: "Umm+Sulaym" },
-  { title: "Saad Bin Abi Waqqas", main_url: "Sa%27d+Ibn+Abi+Waqqas" },
-  { title: "Talha", main_url: "Talha+Ibn+%27Ubaidullah" },
-  { title: "Khulfa E Rashideen", main_url: "Khulafa-E-Rashidun" },
-  { title: "Radhiallahu Anhu", main_url: "Sa%27eed+ibn+Zaid" },
+  {
+    title: "Abu Huraira",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Abu+Hurairah",
+  },
+  {
+    title: "Aisha",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Aisha+Bint+Abi+Bakr",
+  },
+  {
+    title: "Khalid Bin Waleed",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Khalid+Ibn+Al+Waleed",
+  },
+  {
+    title: "Fatima",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Fatima+Bint+Muhammad",
+  },
+  {
+    title: "Umm Sulaym",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Umm+Sulaym",
+  },
+  {
+    title: "Saad Bin Abi Waqqas",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Sa%27d+Ibn+Abi+Waqqas",
+  },
+  {
+    title: "Talha",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Talha+Ibn+%27Ubaidullah",
+  },
+  {
+    title: "Khulfa E Rashideen",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Khulafa-E-Rashidun",
+  },
+  {
+    title: "Radhiallahu Anhu",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Sa%27eed+ibn+Zaid",
+  },
   {
     title: "Umm Al Momineen",
-    main_url: "Radhiallahu+Anhum+or+Raziallahu+Anhum",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Radhiallahu+Anhum+or+Raziallahu+Anhum",
   },
 ];
 
 export let Months = [
-  { title: "Muharram", main_url: "Muharram" },
-  { title: "Safar", main_url: "Safar" },
-  { title: "Rabi-ul-Awwal", main_url: "Rabi+ul+Awwal" },
-  { title: "Rabi-ul-Akhir", main_url: "Rabi-ul-Aakhir" },
-  { title: "Jumada-al-Oola", main_url: "Jumada-al-Ūlaa" },
-  { title: "Jumada-al-Akhirah", main_url: "Jumada-al-Aakhirah" },
-  { title: "Rajab", main_url: "Rajab_" },
-  { title: "Shaban", main_url: "Shaban" },
-  { title: "Ramadhan", main_url: "Ramazaan+Reminders" },
-  { title: "Shawwal", main_url: "Shawwal" },
-  { title: "Zul-Qa'dah", main_url: "Dhul+Qadah" },
-  { title: "Zul-Hijjah", main_url: "Dhul+Hijjah+or+Zilhijjah" },
+  {
+    title: "Muharram",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Muharram",
+  },
+  {
+    title: "Safar",
+    main_url: "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Safar",
+  },
+  {
+    title: "Rabi-ul-Awwal",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Rabi+ul+Awwal",
+  },
+  {
+    title: "Rabi-ul-Akhir",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Rabi-ul-Aakhir",
+  },
+  {
+    title: "Jumada-al-Oola",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Jumada-al-Ūlaa",
+  },
+  {
+    title: "Jumada-al-Akhirah",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Jumada-al-Aakhirah",
+  },
+  {
+    title: "Rajab",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Rajab_",
+  },
+  {
+    title: "Shaban",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Shaban",
+  },
+  {
+    title: "Ramadhan",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Ramazaan+Reminders",
+  },
+  {
+    title: "Shawwal",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Shawwal",
+  },
+  {
+    title: "Zul-Qa'dah",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Dhul+Qadah",
+  },
+  {
+    title: "Zul-Hijjah",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Dhul+Hijjah+or+Zilhijjah",
+  },
 ];
 export let pillars = [
-  { title: "Shahda", main_url: "Shahadah+%28Testimony+or+witness+or+creed%29" },
-  { title: "Salah", main_url: "Salah" },
-  { title: "Saum", main_url: "Fasting" },
-  { title: "Zakat", main_url: "Zakat+in+Islam" },
-  { title: "Hajj", main_url: "Hajj" },
-  { title: "Belief In Allah", main_url: "Belief+in+Allah" },
-  { title: "Belief In The  Angels", main_url: "Belief+in+Angels" },
+  {
+    title: "Shahda",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Shahadah+%28Testimony+or+witness+or+creed%29",
+  },
+  {
+    title: "Salah",
+    main_url: "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Salah",
+  },
+  {
+    title: "Saum",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Fasting",
+  },
+  {
+    title: "Zakat",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Zakat+in+Islam",
+  },
+  {
+    title: "Hajj",
+    main_url: "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Hajj",
+  },
+  {
+    title: "Belief In Allah",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Belief+in+Allah",
+  },
+  {
+    title: "Belief In The  Angels",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Belief+in+Angels",
+  },
   {
     title: "Belief In The Revealed Books",
-    main_url: "Belief+in+Books+of+Allah",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Belief+in+Books+of+Allah",
   },
   {
     title: "Belief In The Messengers",
-    main_url: "Belief+in+Allah%27s+Messengers",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Belief+in+Allah%27s+Messengers",
   },
   {
     title: "Belief In The Day Of Resurrection",
-    main_url: "Belief+in+the+Last+Day",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Belief+in+the+Last+Day",
   },
-  { title: "Belief In Destiny", main_url: "Qadr" },
+  {
+    title: "Belief In Destiny",
+    main_url: "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Qadr",
+  },
 ];
 export let Women = [
   {
     title: "Liberation Of Women Through Islam",
-    main_url: "Women's Liberation Through Islam",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Women's Liberation Through Islam",
   },
   {
     title: "Women's Turning Towards Islam",
-    main_url: "Why+Are+Women+Turning+to+Islam",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Why+Are+Women+Turning+to+Islam",
   },
-  { title: "Daughter in Islam", main_url: "Daughters+in+Islam" },
-  { title: "Women's Issue", main_url: "Women's Issues" },
-  { title: "Women's Health", main_url: "Women+Health" },
-  { title: "Pregnancy", main_url: "Pregnancy" },
-  { title: "Hijab", main_url: "Hijab" },
-  { title: "Recepies", main_url: "Harees" },
+  {
+    title: "Daughter in Islam",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Daughters+in+Islam",
+  },
+  {
+    title: "Women's Issue",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Women's Issues",
+  },
+  {
+    title: "Women's Health",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Women+Health",
+  },
+  {
+    title: "Pregnancy",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Pregnancy",
+  },
+  {
+    title: "Hijab",
+    main_url: "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Hijab",
+  },
+  {
+    title: "Recepies",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Harees",
+  },
 ];
 export let Children = [
-  { title: "Children", main_url: "Children" },
-  { title: "Aqeeqah", main_url: "Aqiqah+or+Aqeeqah" },
-  { title: "Arabic Learnings", main_url: "_Childrens+World_Arabic+Learnings" },
+  {
+    title: "Children",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Children",
+  },
+  {
+    title: "Aqeeqah",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Aqiqah+or+Aqeeqah",
+  },
+  {
+    title: "Arabic Learnings",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/_Childrens+World_Arabic+Learnings",
+  },
   {
     title: "Naming Your Newborn",
-    main_url: "Naming+your+Newborn+%28TASMIYA%29",
+    main_url:
+      "https://www.askislampedia.com/en/wiki/-/wiki/English_wiki/Naming+your+Newborn+%28TASMIYA%29",
   },
 ];
 
@@ -5348,11 +5537,11 @@ export let Ebooks = [
     main_url:
       "https://www.askislampedia.com/documents/10157/200600/en_Muhammad_the_perfect_model_for_humanity.pdf",
   },
-  {
-    title: "Muhammad, the Prophet of God",
-    main_url:
-      "file:///C:/Users/MAUB/Desktop/links/Muhammad,%20the%20Prophet%20of%20God",
-  },
+  // {
+  //   title: "Muhammad, the Prophet of God",
+  //   main_url:
+  //     "file:///C:/Users/MAUB/Desktop/links/Muhammad,%20the%20Prophet%20of%20God",
+  // },
   {
     title: "Muhammad, (Peace Be upon Him), the Prophet of Mercy",
     main_url:

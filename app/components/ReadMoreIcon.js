@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
-
 import { Icon } from "react-native-elements";
 
+import color from "../utils/colors";
 import AppText from "./AppText";
 
 function ReadMoreIcon({ onPress }) {
@@ -14,7 +14,7 @@ function ReadMoreIcon({ onPress }) {
       <Icon
         name="arrow-right-alt"
         type="materialicons"
-        color="#006ee6"
+        color={color.readMore}
         size={25}
       />
     </TouchableOpacity>
@@ -26,7 +26,13 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "center",
   },
-  text: { marginVertical: 10, color: "#006ee6", fontSize: 20, marginRight: 5 },
+  text: {
+    marginVertical: 10,
+    color: color.readMore,
+    fontSize: 20,
+    marginRight: 5,
+    fontWeight: "500",
+  },
 });
 // #365DCE
 export default ReadMoreIcon;

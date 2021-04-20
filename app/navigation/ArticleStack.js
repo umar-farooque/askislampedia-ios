@@ -20,9 +20,10 @@ import AllArticles from "../screens/AllArticles";
 import SearchScreen from "../screens/SearchScreen";
 import InternalLinksScreen from "../screens/InternalLinksScreen";
 import NextScreen from "../screens/NextScreen";
+import HeaderReadMore from "../components/HeaderReadMore";
 
 const Stack = createStackNavigator();
-
+const url = "https://www.askislampedia.com/wiki";
 function ArticleStack(props) {
   const navigation = useNavigation();
   return (
@@ -38,7 +39,14 @@ function ArticleStack(props) {
       <Stack.Screen
         name="Detail Screen"
         component={DetailScreen}
-        options={({ route }) => ({ title: route.params.title })}
+        options={({ route, navigation }) => ({
+          title: route.params.title,
+          headerRight: () => (
+            <HeaderReadMore
+              onPress={() => navigation.navigate("Webview", { url })}
+            />
+          ),
+        })}
       />
       <Stack.Screen
         name="AllArticles"
@@ -48,12 +56,12 @@ function ArticleStack(props) {
       <Stack.Screen
         name="Search Screen"
         component={SearchScreen}
-        options={{ title: "Search" }}
+        options={{ title: "Search Articles" }}
       />
       <Stack.Screen
         name="Webview"
         component={WebViewScreen}
-        options={({ route }) => ({ title: route.params.title })}
+        options={{ title: "" }}
       />
       <Stack.Screen
         name="Internal Links"
